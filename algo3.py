@@ -19,7 +19,6 @@ def algo_col_group(project, collaborators, time):
                         usable_col.append(col)
                         break
                     col.set_next_available(time + project.get_duration())
-                return usable_col
     return usable_col
 
 
@@ -32,12 +31,6 @@ def algo2(projects, collaborators):
 
     projects.sort(key=lambda d: d.get_must_be_started_on())
 
-    """int day = 0
-    while true:
-        new_project_started = False
-        for proj in started_project:
-            if proj.started_day + proj.duration == day:
-                collaborators.extend(proj.collab)"""
     for p in projects:
         current_time = p.get_must_be_started_on()
         cols = algo_col_group(p, collaborators, current_time)

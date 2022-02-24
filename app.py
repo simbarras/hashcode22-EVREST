@@ -19,10 +19,10 @@ def run(filename: str):
     print(f"Parse {filename}")
     projects, collaborators = parser.parse(filename)
     results = algo2(projects, collaborators)
-    res2 = algo3.algo2(projects, collaborators)
+    #res2 = algo3.algo2(projects, collaborators)
     print("Result found")
     parser.generate_output(results, filename)
-    parser.generate_output(res2, "testout")
+    #parser.generate_output(res2, filename)
 
 
 def algo_col_group(project, collaborators):
