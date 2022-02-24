@@ -8,3 +8,12 @@ class Result:
 
     def add_collaborator(self, collaborator: str):
         self.collaborator.append(collaborator)
+
+    def add_collaborators(self, collaborators: list):
+        self.collaborator.extend(collaborators)
+
+    def get_project_name(self):
+        return self.project
+
+    def get_collaborators(self):
+        return self.collaborator

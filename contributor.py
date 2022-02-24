@@ -8,6 +8,7 @@ class Contributor:
     def __init__(self, name: str):
         self.name = name
         self.skills = []
+        self.work_days = 0
 
     def add_skill(self, sk: skill):
         self.skills.append(sk)
@@ -23,3 +24,12 @@ class Contributor:
 
     def get_name(self):
         return self.name
+
+    def set_next_available(self, time):
+        self.work_days = time
+
+    def next_available(self):
+        return self.work_days
+
+    def is_free_on(self, time):
+        return time > self.work_days

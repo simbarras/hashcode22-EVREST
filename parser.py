@@ -2,6 +2,7 @@ from dataclasses import field
 from skill import Skill
 from contributor import Contributor
 from project import Project
+from result import Result
 
 
 def parse(file):
@@ -33,9 +34,23 @@ def get_contributor(f):
 def get_project(f):
     [name, days, score, best_effort,
      number_of_skills] = f.readline().strip().split()
-    project = Project(name, int(days), int(score), int(best_effort))
+    project = Project(name, int(days), int(score), int(best_effort),
+                      int(best_effort) - int(days))
     get_skills(int(number_of_skills), f, project)
     return project
 
-def generate_output(f):
-    pass
+
+def get_collaborators_as_line(collaborators: [Contributor]):
+    line = ""
+    for coll in collaborators:
+        line += f'{coll.get_name()} '
+    return line
+
+
+def generate_output(res: [Result], filename):
+    with open(f'output_data/{filename}.out.txt', 'a') as outfile:
+        outfile.write(f'{str(len(res))}\n')
+        for result in res:
+            outfile.write(f'{result.get_project_name()}\n')
+            outfile.write(
+                f'{get_collaborators_as_line(result.get_collaborators())}\n')
