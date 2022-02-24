@@ -8,7 +8,6 @@ from result import Result
 def parse(file):
     with open(f"input_data/{file}.in.txt") as f:
         [contributors_count, projects_counts] = f.readline().strip().split()
-        contributor_count = 0
         contributors = []
         projects = []
         for i in range(int(contributors_count)):

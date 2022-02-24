@@ -16,28 +16,23 @@ FILES = ["a_an_example", "b_better_start_small", "c_collaboration",
 
 
 def run(filename: str):
-    print(f"Parse {filename}")
     projects, collaborators = parser.parse(filename)
-    results = algo2(projects, collaborators)
-    #res2 = algo3.algo2(projects, collaborators)
-    print("Result found")
-    parser.generate_output(results, filename)
-    #parser.generate_output(res2, filename)
+   # results = algo2(projects, collaborators)
+    res2 = algo3.algo2(projects, collaborators)
+    #parser.generate_output(results, filename)
+    parser.generate_output(res2, filename)
 
 
 def algo_col_group(project, collaborators):
     usable_col = []
-    print(f'Project : {project.name}')
     for sk in project.skills:
         for col in collaborators:
             for sk_col in col.skills:
                 if sk_col.name == sk.name:
-                    print(f'Col : {col.name}\t {sk_col.name}\t{sk.name}')
-                    if sk_col.level == sk.level:
-                        col.upgrade_skill(sk_col.name)
-                        usable_col.append(col)
-                        break
-                    elif sk_col.level > sk.level:
+                    if sk_col.level >= sk.level:
+                        for used_col in usable_col:
+                            if used_col.name == col.name:
+                                continue
                         usable_col.append(col)
                         break
     return usable_col
@@ -66,10 +61,18 @@ def algo2(projects, collaborators):
     for p in projects:
         cols = algo_col_group(p, collaborators)
         if len(cols) == len(p.skills):
+            for i in range(len(cols)):
+                current_skill = p.skills[i].name
+                j = 0
+                for j in range(len(cols[i].skills)):
+                    if current_skill == cols[i].skills[j].name:
+                        break
+                if p.skills[i].level == cols[i].skills[j].level:
+                    cols[i].upgrade_skill(current_skill)
+
             res = Result(p.name)
             res.add_collaborators(cols)
             result.append(res)
-
     return result
 
 
@@ -80,8 +83,8 @@ def algo2(projects, collaborators):
 # ProjectName               nbDaysToComplete    ScoreAtCompletion   BestBefore  nbContributors
 if __name__ == "__main__":
     print("C'est partiii let's gooo")
-    #run(FILES[0])
+    run(FILES[0])
     run(FILES[1])
-    #run(FILES[2])
-    #run(FILES[3])
-    #run(FILES[4])
+    run(FILES[2])
+    run(FILES[3])
+    run(FILES[4])
